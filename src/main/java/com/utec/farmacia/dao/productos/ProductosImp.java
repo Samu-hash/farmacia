@@ -31,7 +31,7 @@ public class ProductosImp implements Productos {
     @Override
     public Object guardarProducto(ProductosModel cli) throws SQLException {
          ConexionDb cn = new ConexionDb();
-        ResultSet rs = cn.getConectar("{call sp_crear_productos(?,?,?,?)}", new Object[]{
+        ResultSet rs = cn.getConectar("{call sp_crear_productos(?,?,?)}", new Object[]{
             cli.getNombre(),cli.getPrecio(),cli.getExistencia()}
         );
         return obtenerDatos(rs).get(0);
