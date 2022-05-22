@@ -43,6 +43,65 @@ public class ProductosController {
         }
     }
     
+     @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/guardar")
+    public String guardarDatos(String json) {
+        Gson gson = new Gson();
+        ProductosModel pdm = new ProductosModel();
+        try {
+            ProductosModel valores = gson.fromJson(json, ProductosModel.class);
+            ProductosImp pimp = new ProductosImp();
+
+            pdm = (ProductosModel) pimp.guardarProducto(valores);
+        } catch (Exception e) {
+            pdm.setTitulo("Transaccion denegada");
+            pdm.setDetalle("Error: " + e.getMessage());
+        }
+        return gson.toJson(pdm);
+    }
+    
+     @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/actualizar")
+    public String actualizarDatos(String json) {
+        Gson gson = new Gson();
+        ProductosModel pm = new ProductosModel();
+        try {
+            ProductosModel valores = gson.fromJson(json, ProductosModel.class);
+           ProductosImp pimp = new ProductosImp();
+
+            pm = (ProductosModel) pimp.actualizarProducto(valores);
+        } catch (Exception e) {
+            pm.setTitulo("Transaccion denegada");
+            pm.setDetalle("Error: " + e.getMessage());
+        }
+        return gson.toJson(pm);
+    }
+    
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/eliminar")
+    public String eliminarDatos(String json) {
+        Gson gson = new Gson();
+        ProductosModel pm = new ProductosModel();
+        try {
+            ProductosModel datos = gson.fromJson(json, ProductosModel.class);
+            ProductosImp pimp = new ProductosImp();
+
+            pm = (ProductosModel) pimp.eliminarProducto(datos);
+        } catch (Exception e) {
+            pm.setTitulo("Transaccion denegada");
+            pm.setDetalle("Error: " + e.getMessage());
+        }
+        return gson.toJson(pm);
+    }
+    
+    
+    
     
     
 }

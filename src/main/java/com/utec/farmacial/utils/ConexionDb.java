@@ -10,17 +10,17 @@ import java.util.Objects;
 public class ConexionDb {
 
     protected Connection cn;
-    private Parametros param;
+   // private Parametros param;
 
     public Connection conectarDb() {
-        param = new Parametros();
-        Constants c = param.obtenerParametroConexion();
+      //  param = new Parametros();
+      //  Constants c = param.obtenerParametroConexion();
         try {
-            String url = "jdbc:sqlserver://" + c.getSERVER() + ":" + c.getPORT() + ";databaseName=" + c.getDB_NAME() + ";integratedSecurity=" + c.getINTEGRAL_SECURITY();
-            String user = c.getUSER();
-            String password = c.getPASSWORD();
+            String url = "jdbc:sqlserver://localhost:1433;databaseName=farmaciaprueba";
+            String user = "PRUEBA";
+            String password = "12345";
 
-            Class.forName(c.getDRIVER());
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
             cn = DriverManager.getConnection(url, user, password);
         } catch (Exception x) {
