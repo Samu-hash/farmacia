@@ -10,11 +10,11 @@ import java.util.Objects;
 public class ConexionDb {
 
     protected Connection cn;
-   // private Parametros param;
+    // private Parametros param;
 
     public Connection conectarDb() {
-      //  param = new Parametros();
-      //  Constants c = param.obtenerParametroConexion();
+        //  param = new Parametros();
+        //  Constants c = param.obtenerParametroConexion();
         try {
             String url = "jdbc:sqlserver://localhost:1433;databaseName=farmaciaprueba";
             String user = "PRUEBA";
@@ -41,7 +41,12 @@ public class ConexionDb {
                     Long.valueOf(object.toString());
                     st.setLong(contador, Long.valueOf(object.toString()));
                 } catch (Exception e) {
-                    st.setString(contador, object.toString());
+                    try {
+                        Float.valueOf(object.toString());
+                        st.setFloat(contador, Float.valueOf(object.toString()));
+                    } catch (Exception e2) {
+                        st.setString(contador, object.toString());
+                    }
                 }
                 contador++;
             }

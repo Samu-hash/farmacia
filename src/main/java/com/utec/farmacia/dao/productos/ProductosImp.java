@@ -21,9 +21,8 @@ public class ProductosImp implements Productos {
     @Override
     public Object consultarProducto(ProductosModel cli) throws SQLException {
        ConexionDb cn = new ConexionDb();
-        Object[] obj = new Object[]{
-            cli.getIdproducto(),cli.getNombre()};
-        ResultSet rs = cn.getConectar("{call sp_buscar_productos(?,?)}", 
+        Object[] obj = new Object[]{};
+        ResultSet rs = cn.getConectar("{call sp_buscar_productos()}", 
         obj);
         return obtenerDatos(rs);
     }
@@ -60,6 +59,9 @@ public class ProductosImp implements Productos {
         while (rs.next()) {
             ProductosModel t = new ProductosModel();
             if (rs.getInt("codigo") == 1) {
+                t.setTitulo(rs.getString("titulo"));
+                t.setDetalle(rs.getString("detalle"));
+                t.setCodigo(rs.getInt("codigo"));
                 t.setIdproducto(rs.getInt("idproducto"));
                 t.setNombre(rs.getString("nombre"));
                 t.setDescripcion(rs.getString("descripcion"));
